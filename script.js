@@ -18,6 +18,10 @@ function getSkuFromProductItem(item) {
 
 function cartItemClickListener(event) {
   if (event.type === 'click') {
+    const item = this.innerText.split('|');
+    const preco = parseFloat(item[2].substr(item[2].indexOf('$')+1));
+    const total = parseFloat(document.querySelector('.total-price .total').innerText);
+    document.querySelector('.total-price .total').innerText = (total - preco).toFixed(2);
     this.remove();
     localStorage.setItem('cart__items', document.querySelector('.cart__items').innerHTML);
   }
@@ -28,6 +32,8 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
+  const total = parseFloat(document.querySelector('.total-price .total').innerText);
+  document.querySelector('.total-price .total').innerText = (total + salePrice).toFixed(2);
   return li;
 }
 
@@ -58,14 +64,27 @@ function emptyCart() {
   localStorage.setItem('cart__items', document.querySelector('.cart__items').innerHTML);
 }
 
-window.onload = () => {
+function loadCart() {
   if (localStorage.getItem('cart__items')) {
     document.querySelector('.cart__items').innerHTML = localStorage.getItem('cart__items');
-    document.querySelectorAll('.cart__items li').forEach((bt) => {
-      bt.addEventListener('click', cartItemClickListener);
-    });
   }
 
+  const e = document.createElement('div');
+  e.className = 'total-price';
+  e.innerHTML = 'Preço total: $<span class=\'total\'>0.00<span>';
+  document.querySelector('.cart').append(e);
+
+  document.querySelectorAll('.cart__items li').forEach((it) => {
+    it.addEventListener('click', cartItemClickListener);
+    const item = it.innerText.split('|');
+    const preco = parseFloat(item[2].substr(item[2].indexOf('$')+1));
+    const total = parseFloat(document.querySelector('.total-price .total').innerText);
+    document.querySelector('.total-price .total').innerText = (total + preco).toFixed(2);
+  });
+}
+
+window.onload = () => {
+  loadCart();
   document.querySelector('.empty-cart').addEventListener('click', emptyCart);
   const QUERY = 'computador';
   const URL = `https://api.mercadolibre.com/sites/MLB/search?q=${QUERY}`;
