@@ -19,9 +19,9 @@ function getSkuFromProductItem(item) {
 function cartItemClickListener(event) {
   if (event.type === 'click') {
     const item = this.innerText.split('|');
-    const preco = parseFloat(item[2].substr(item[2].indexOf('$')+1));
-    const total = parseFloat(document.querySelector('.total-price .total').innerText);
-    document.querySelector('.total-price .total').innerText = (total - preco).toFixed(2);
+    const preco = parseFloat(item[2].substr(item[2].indexOf('$') + 1));
+    const total = parseFloat(document.querySelector('.total-price').innerText);
+    document.querySelector('.total-price').innerText = (total - preco);
     this.remove();
     localStorage.setItem('cart__items', document.querySelector('.cart__items').innerHTML);
   }
@@ -32,8 +32,8 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
-  const total = parseFloat(document.querySelector('.total-price .total').innerText);
-  document.querySelector('.total-price .total').innerText = (total + salePrice).toFixed(2);
+  const total = parseFloat(document.querySelector('.total-price').innerText);
+  document.querySelector('.total-price').innerText = (total + salePrice);
   return li;
 }
 
@@ -70,16 +70,16 @@ function loadCart() {
   }
 
   const e = document.createElement('div');
-  e.className = 'total-price';
-  e.innerHTML = 'Preço total: $<span class=\'total\'>0.00<span>';
+  e.className = 'total';
+  e.innerHTML = 'Preço total: $<span class=\'total-price\'>0.00<span>';
   document.querySelector('.cart').append(e);
 
   document.querySelectorAll('.cart__items li').forEach((it) => {
     it.addEventListener('click', cartItemClickListener);
     const item = it.innerText.split('|');
-    const preco = parseFloat(item[2].substr(item[2].indexOf('$')+1));
-    const total = parseFloat(document.querySelector('.total-price .total').innerText);
-    document.querySelector('.total-price .total').innerText = (total + preco).toFixed(2);
+    const preco = parseFloat(item[2].substr(item[2].indexOf('$') + 1));
+    const total = parseFloat(document.querySelector('.total-price').innerText);
+    document.querySelector('.total-price').innerText = (total + preco);
   });
 }
 
