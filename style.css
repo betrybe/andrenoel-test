@@ -63,14 +63,39 @@
   border: 2px solid #006;
   border-radius: 7px;
   padding: 10px 20px;
-  background: #ffc;
+  background: lightgrey;
 }
 
 .cart .cart__title {
   flex-basis: 1;
-  font-size: 16pt;
+  font-size: 1.6em;
   text-align: center;
-  font-weight: bold;
-  color: #006;
+  font-weight: 700;
   margin-bottom: 20px;
+}
+
+.cart .cart__item {
+  padding: 10px;
+  margin-bottom: 5px;
+  border: 1px dashed grey;
+  border-radius: 7px;
+  background: #ffc;
+}
+
+.cart .cart__item:hover {
+  background: #ffc;
+}
+
+.cart button {
+  font-size: 1em;
+  padding: 10px;
+  border-radius: 10px;
+  width: 75%;
+  margin: 0 auto;
+  background: white;
+}
+
+.cart .total {
+  font-size: 1.4em;
+  font-weight: 700;
 }

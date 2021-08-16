@@ -62,6 +62,7 @@ function createProductItemElement({ sku, name, image }) {
 function emptyCart() {
   document.querySelector('.cart__items').innerHTML = '';
   localStorage.setItem('cart__items', document.querySelector('.cart__items').innerHTML);
+  document.querySelector('.total-price').innerText = '0.00';
 }
 
 function loadCart() {
