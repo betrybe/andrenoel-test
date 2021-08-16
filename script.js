@@ -15,12 +15,21 @@ function createCustomElement(element, className, innerText) {
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
   section.className = 'item';
-
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
-  section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
-
+  const BT = createCustomElement('button', 'item__add', 'Adicionar ao carrinho!');
+  BT.addEventListener('click', () => {
+    const URL = `https://api.mercadolibre.com/items/${sku}`;
+    fetch(`${URL}`)
+      .then((body) => body.json())
+      .then((data) => {
+        const ITEM = { sku: data.id, name: data.title, salePrice: data.price };
+        document.querySelector('.cart__items').append(createCartItemElement(ITEM));
+      })
+      .catch((error) => console.error('Erro:', error.message || error));
+  });
+  section.appendChild(BT);
   return section;
 }
 
