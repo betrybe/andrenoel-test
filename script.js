@@ -83,14 +83,28 @@ function loadCart() {
   });
 }
 
+function showLoading() {
+  const e = document.createElement('div');
+  e.className = 'loading';
+  e.innerHTML = 'Loading...';
+  document.querySelector('.items').append(e);
+}
+
+function hideLoading() {
+  document.querySelector('.loading').remove();
+}
+
 window.onload = () => {
   loadCart();
   document.querySelector('.empty-cart').addEventListener('click', emptyCart);
   const QUERY = 'computador';
   const URL = `https://api.mercadolibre.com/sites/MLB/search?q=${QUERY}`;
+  showLoading();
+
   fetch(`${URL}`)
     .then((body) => body.json())
     .then((data) => {
+      hideLoading();
       const PRODUTOS = data.results;
       console.log(PRODUTOS);
       PRODUTOS.forEach((item, i) => {
