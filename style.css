@@ -12,7 +12,7 @@
 }
 
 .item {
-  border: 2px solid #006;
+  border: 2px solid darkblue;
   border-radius: 5px;
   box-sizing: border-box;
   display: flex;
@@ -43,9 +43,9 @@
 }
 
 .item .item__add {
-  background-color: #900;
-  color: #fff;
-  font-weight: bold;
+  background-color: darkred;
+  color: white;
+  font-weight: 700;
   border: 0;
   cursor: pointer;
   margin: 0;
@@ -53,14 +53,14 @@
 }
 
 .item .item__add:hover {
-  background: #c00;
+  background: red;
 }
 
 .cart {
   display: flex;
   flex-basis: 30%;
   flex-flow: column wrap;
-  border: 2px solid #006;
+  border: 2px solid darkblue;
   border-radius: 7px;
   padding: 10px 20px;
   background: lightgrey;
@@ -79,11 +79,11 @@
   margin-bottom: 5px;
   border: 1px dashed grey;
   border-radius: 7px;
-  background: #ffc;
+  background: white;
 }
 
 .cart .cart__item:hover {
-  background: #ffc;
+  background: white;
 }
 
 .cart button {
